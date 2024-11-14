@@ -1,0 +1,157 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Made This In An Hour</title>
+    <style>
+        /* General Styles */
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            overflow: hidden;
+        }
+        img {
+            width: 200px;
+            height: auto;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin-top: 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* Popup Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 300px;
+            position: relative;
+        }
+        .modal button {
+            background-color: #f0ad4e;
+            margin-top: 15px;
+        }
+        
+        /* Heart Animation Styles */
+        .heart {
+            position: absolute;
+            bottom: -20px;
+            font-size: 24px;
+            color: red;
+            animation: floatUp 4s infinite ease-in-out;
+            opacity: 0;
+        }
+
+        /* Different Heart Colors and Sizes */
+        .heart:nth-child(2n) { color: #FF69B4; }
+        .heart:nth-child(3n) { color: #FF6347; }
+        .heart:nth-child(4n) { color: #FF1493; }
+        .heart:nth-child(5n) { color: #FF4500; }
+        .heart:nth-child(odd) { font-size: 30px; }
+        .heart:nth-child(even) { font-size: 20px; }
+        
+        /* Keyframes for Heart Floating Up Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-150px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <img src="Peter_Griffin.png" alt="Peter Griffin">
+    <button onclick="showPopup()">Click me for a message</button>
+
+    <!-- First Message Modal -->
+    <div class="modal" id="popupModal">
+        <div class="modal-content">
+            <div id="heartContainer"></div>
+            <p>Hi, Tanvi. I hope i didn't made you wait for too long. I was lost in your dream. :P</p>
+            <button onclick="showSecondPopup()">One more thing</button>
+        </div>
+    </div>
+
+    <!-- Second Message Modal -->
+    <div class="modal" id="secondPopupModal">
+        <div class="modal-content">
+            <p>Doctor ki bollo?</p>
+            <button onclick="closePopup()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        function showPopup() {
+            // Show the first modal
+            document.getElementById('popupModal').style.display = 'flex';
+
+            // Create heart animations
+            const heartContainer = document.getElementById('heartContainer');
+            heartContainer.innerHTML = ''; // Clear previous hearts
+            for (let i = 0; i < 20; i++) { // Increase the number of hearts
+                const heart = document.createElement('div');
+                heart.classList.add('heart');
+                heart.textContent = '♥'; // Add heart symbol
+                heart.style.left = `${Math.random() * 100}%`;
+                heart.style.animationDelay = `${Math.random() * 2}s`; // Random delay for staggered effect
+                heart.style.animationDuration = `${Math.random() * 2 + 3}s`; // Randomize animation duration
+                heartContainer.appendChild(heart);
+            }
+        }
+
+        function showSecondPopup() {
+            // Hide the first modal and show the second one
+            document.getElementById('popupModal').style.display = 'none';
+            document.getElementById('secondPopupModal').style.display = 'flex';
+        }
+
+        function closePopup() {
+            // Close the second modal
+            document.getElementById('secondPopupModal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            const popupModal = document.getElementById('popupModal');
+            const secondPopupModal = document.getElementById('secondPopupModal');
+            if (event.target == popupModal) {
+                popupModal.style.display = "none";
+            }
+            if (event.target == secondPopupModal) {
+                secondPopupModal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>
